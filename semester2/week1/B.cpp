@@ -1,13 +1,14 @@
 #include <iostream>
 
 int zeros_in_tail(int N) {
-    int k = N;
-    if (N % 10 >= 5){
-        k = 2 * (N / 10) + 1;
-    } else {
-        k = 2 * (N / 10);
+    int k = 5;
+    int new_number = 0;
+    int muliplier = 0;
+    while(k < N){
+        new_number += N / k;
+        k *= 5;
     }
-    return k;
+    return new_number;
 }
 
 int main() {
