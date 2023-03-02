@@ -11,8 +11,10 @@ void bubble_with_step(int (&a)[], int step, int N) {
 }
 
 void combSort(int (&a)[], int step, int N) {
-    bubble_with_step(a, step, N);
-    bubble_with_step(a, 1, N);
+    for (int i = step; i > 0; i/=2)
+    {
+        bubble_with_step(a, i, N);
+    }
 }
 
 unsigned seed = 972;
@@ -37,7 +39,7 @@ int time_measure(int (&a)[], int multiplier, int N) {
     for (int i = 0; i < 5; i++)
     {
         auto begin = std::chrono::steady_clock::now();
-        for (int i = 1; i < multiplier; i++) combSort(a, 4, N);
+        for (int i = 1; i < multiplier; i++) combSort(a, N, N);
         auto end = std::chrono::steady_clock::now();
         auto time_span = 
         std::chrono::duration_cast <std::chrono::milliseconds>(end - begin);
