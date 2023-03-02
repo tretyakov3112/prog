@@ -26,29 +26,29 @@ int find_sum(int a[], int k, int N) {
                 return 1;
             }
         }
-        
     }
     return -1;
     
 }
 
 int lin_sum(int a[], int number, int N){
-    int left = 0; // a[left] <= number && a[right] > number
+    int left = 0;
     int right = N - 1;
-    while (a[left] + a[right] != number)
+    while ((a[left] + a[right] != number) && (left != right))
     {
-        if (a[left] + a[right-1] < number && a[left+1] + a[right] > number) {
-            return -1;
-        } 
         if (a[left] + a[right] > number) {
             --right;
         } else {
             ++left;
-        } 
-        
+        }
     }
-    return left + right;
+    if (a[left] + a[right] == number) {
+        return number;
+    } else {
+        return -1;
+    }
 }
+
 
 int time_measure(int a[], int number, int multiplier, int N) {
     int sum = 0;
@@ -67,7 +67,6 @@ int time_measure(int a[], int number, int multiplier, int N) {
 
 
 int main() {
-    // int counter = 9;
     for (int N = 512; N < 2000000; N*=2)
     {
         int a[N];
