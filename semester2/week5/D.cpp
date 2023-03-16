@@ -1,13 +1,6 @@
 #include <iostream>
 using namespace std;
 
-// На вход программы подается число N – размер массива. Выделите память на N элементов типа int. Затем идет N целых чисел – элементы массива. 
-// Реализуйте функции void input_array(int* ptr, size_t N), void reverse(int* ptr, size_t N) и void print(const int* ptr, size_t N).
-
-//     void input_array(int* ptr, size_t N): заполняет массив по указателю ptr N элементами
-//     void reverse(int* ptr, size_t N): переставляет элементы в обратном порядке
-//     void print(const int* ptr, size_t N): выводит все элементы массива в порядке возрастания индекса
-
 void input_array(int* ptr, size_t N);
 void reverse(int* ptr, size_t N);
 void print(const int* ptr, size_t N);
