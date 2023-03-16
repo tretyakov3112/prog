@@ -3,12 +3,13 @@
 #include <fstream>
 #include <random>
 
-void linear_search(int* array, int k, int a){
+int linear_search(int* array, int k, int a){
     for (int i = 0; i < a; i++){
         if (k == array[i]){
-            return;
+            return i;
         }
     }
+    return -1;
 }
 
 int main() {
