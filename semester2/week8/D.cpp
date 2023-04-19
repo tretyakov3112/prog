@@ -27,43 +27,40 @@ void destroy_list(Node *&head_ptr) {
 
 
 void checker(Node* head){
-    if (head == nullptr){
-        head = new Node;
-        head->key = std::getchar();
-        if (head->key == ')'){
-            std::cout << "NO" << std::endl;
-            return;
-        }else if (head->key == '\n'){
-            std::cout << "YES" << std::endl;
-            return;
-        }
-
-        head->next = nullptr;
-    }
-
-    Node* current = head;
-    Node* Next = current->next;
-    Node* Prev = nullptr;
-    while(current->key != '\n'){
-        Next = new Node;
-        Next->key = std::getchar();
-        if (current->key == Next->key){
-            std::cout << "NO" << std::endl;
-            return;
-        }
-        Next->next = nullptr;
-        Prev = current;
-        current = Next;
-        Next = Next->next;
-    }
-
-    if (Prev->key == '('){
+    char c = std::getchar();
+    if (c == ')'){
         std::cout << "NO" << std::endl;
         return;
-    } 
+    } else if (c == '\n' || c == '\0'){
+        std::cout << "YES" << std::endl;
+        return;
+    }
 
-    std::cout << "YES" << std::endl;
-    return;
+    head = new Node;
+    head->key = c;
+    head->next = nullptr;
+
+    Node* current = head;
+    while((c = std::getchar()) != '\n' && c != '\0'){
+        Node* Next = new Node;
+        Next->key = c;
+        Next->next = nullptr;
+        if (current->key == '(' && Next->key == ')') {
+            current = current->next;
+            delete Next;
+        } else {
+            current->next = Next;
+            current = Next;
+        }
+    }
+
+    if (current->key == '('){
+        std::cout << "NO" << std::endl;
+    } else {
+        std::cout << "YES" << std::endl;
+    }
+
+    destroy_list(head);
 }
 
 int main() {

@@ -89,19 +89,29 @@ Node *mergeTwoLists(Node *list1, Node *list2) {
     if (list1 == nullptr) return list2;
     if (list2 == nullptr) return list1;
 
+    Node *dummy = new Node; // создаем фиктивный узел для удобства
+    Node *tail = dummy; // указатель на хвост нового списка
     Node *current1 = list1;
     Node *current2 = list2;
-    while (current2 != nullptr) {
-        while (current2->key > current1->next->key && current1->next != nullptr)
+
+    while (current1 != nullptr && current2 != nullptr) {
+        if (current1->key <= current2->key) {
+            tail->next = current1;
             current1 = current1->next;
-        Node *Next = current1->next;
-        Node *new_el = new Node;
-        current1->next = new_el;
-        new_el->key = current2->key;
-        new_el->next = Next;
-        current2 = current2->next;
+        } else {
+            tail->next = current2;
+            current2 = current2->next;
+        }
+        tail = tail->next;
     }
-    return list1;
+
+    // добавляем оставшиеся элементы из list1 или list2
+    if (current1 != nullptr) tail->next = current1;
+    if (current2 != nullptr) tail->next = current2;
+
+    Node *result = dummy->next;
+    delete dummy; // освобождаем фиктивный узел
+    return result;
 }
 
 int main() {
