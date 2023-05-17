@@ -11,11 +11,6 @@ struct Node{
     int value = 0;
     Node* left = nullptr;
     Node* right = nullptr;
-
-    //Я РУССКИЙ
-    //Я ИДУ ДО КОНЦА
-    //Я РУССКИЙ
-    //МОЯ КРОВЬ ОТ ОТЦААА
     Node* parent = nullptr;
     bool color = black;
 };
@@ -139,6 +134,7 @@ void print_tree(Node* tree, int padding = 0) {//Функция вывода да
         print_tree(tree->right, padding); //правое поддерево
     }
 }
+
 
 Node* head_found(Node* p)
 {
@@ -319,11 +315,19 @@ void del(Node* deleted)
     }
 }
 
-int main(){
-    Node* tree = nullptr;
-    for (int i = 0; i < 12; i++){
-        insert(tree, i);
+int main () {
+    int n;                              //Количество элементов
+    int s;                              //Число, передаваемое в дерево
+    Node* tree = nullptr;                            
+    cout << "введите количество элементов:  ";
+    cin >> n;                           //Вводим количество элементов
+    cout << "ведите числа:  ";
+    for (int i=0; i<n; ++i){
+        cin >> s;                       //Считываем элемент за элементом
+        insert(tree, s);                 //И каждый кладем в дерево
     }
-    print_tree(tree);
+    cout << "ваше дерево:\n";
+    print_tree(tree, 0);
+    cin.ignore().get();
     return 0;
 }
