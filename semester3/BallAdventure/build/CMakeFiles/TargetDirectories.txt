@@ -1,0 +1,3 @@
+/Users/tretyakov3112/Desktop/prog_3semester/BallAdventure/build/CMakeFiles/main.dir
+/Users/tretyakov3112/Desktop/prog_3semester/BallAdventure/build/CMakeFiles/edit_cache.dir
+/Users/tretyakov3112/Desktop/prog_3semester/BallAdventure/build/CMakeFiles/rebuild_cache.dir
