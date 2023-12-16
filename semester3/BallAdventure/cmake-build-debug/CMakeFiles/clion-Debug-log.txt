@@ -1,6 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /Users/tretyakov3112/Desktop/prog_3semester/BallAdventure -B /Users/tretyakov3112/Desktop/prog_3semester/BallAdventure/cmake-build-debug
--- Could NOT find Freetype (missing: FREETYPE_INCLUDE_DIRS FREETYPE_VERSION_STRING) 
--- Found SFML 3.0.0 in /usr/local/lib/cmake/SFML
--- Configuring done (0.4s)
--- Generating done (0.0s)
--- Build files have been written to: /Users/tretyakov3112/Desktop/prog_3semester/BallAdventure/cmake-build-debug
