@@ -8,6 +8,7 @@ int main()
     const int width = 800;
     const int height = 600;
     const int circleRadius = 20;
+    const int trackWidth = 10;
 
     sf::RenderWindow window(sf::VideoMode(width, height), "Ball Adventure");
 
@@ -36,18 +37,19 @@ int main()
 
     sf::CircleShape player(circleRadius);
     player.setFillColor(sf::Color::Red);
-    player.setPosition(width / 2 , height / 2 - circleRadius);
+    player.setPosition(width / 2 - circleRadius, height - 50);
 
-    sf::VertexArray track(sf::LineStrip, 2);
-    // track[0].position = sf::Vector2f(0, 200 );
-    // track[0].color = sf::Color::Blue;
-    // track[1].position = sf::Vector2f(width,  800 );
-    // track[1].color = sf::Color::Blue;
-    sf::VertexArray lines(sf::LinesStrip, 4);
-    lines[0].position = sf::Vector2f(100, 0);
-    lines[1].position = sf::Vector2f(200, 0);
-    lines[2].position = sf::Vector2f(300, 500);
-    lines[3].position = sf::Vector2f(400, 200);
+    std::vector<sf::RectangleShape> track;
+    srand(time(0));
+    int trackLength = 2000;
+    int trackHeight = height / 2;
+    for (int i = 0; i < trackLength; i += 50)
+    {
+        sf::RectangleShape segment(sf::Vector2f(50, trackHeight));
+        segment.setFillColor(sf::Color::Blue);
+        segment.setPosition(i, height / 4);
+        track.push_back(segment);
+    }
 
     bool isPlaying = false;
     bool isWin = false;
@@ -59,6 +61,25 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if (event.type == sf::Event::KeyPressed && isPlaying && !isWin)
+            {
+                if (event.key.code == sf::Keyboard::Right)
+                {
+                    player.move(5, 0);
+                    for (auto &segment : track)
+                    {
+                        segment.move(-5, 0);
+                    }
+                }
+                else if (event.key.code == sf::Keyboard::Left)
+                {
+                    player.move(-5, 0);
+                    for (auto &segment : track)
+                    {
+                        segment.move(5, 0);
+                    }
+                }
+            }
             if (event.type == sf::Event::MouseButtonPressed && !isPlaying)
             {
                 if (startButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
@@ -70,19 +91,23 @@ int main()
                     isPlaying = true;
                     isWin = false;
                     player.setPosition(width / 2 - circleRadius, height - 50);
+                    for (auto &segment : track)
+                    {
+                        segment.setPosition(segment.getPosition().x, height / 4);
+                    }
                 }
             }
         }
 
         if (isPlaying && !isWin)
         {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            for (auto &segment : track)
             {
-                player.move(5, 0);
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            {
-                player.move(-5, 0);
+                if (segment.getGlobalBounds().intersects(player.getGlobalBounds()))
+                {
+                    isWin = true;
+                    isPlaying = false;
+                }
             }
         }
 
@@ -95,11 +120,10 @@ int main()
         }
         else
         {
-            sf::View view(sf::FloatRect(0, 0, width, height));
-            view.setCenter(player.getPosition());
-            window.setView(view);
-
-            window.draw(lines);
+            for (auto &segment : track)
+            {
+                window.draw(segment);
+            }
             window.draw(player);
         }
 
@@ -114,3 +138,4 @@ int main()
 
     return 0;
 }
+

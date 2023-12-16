@@ -1,12 +1,15 @@
-cmake_minimum_required(VERSION 3.11)
-
+CMAKE_MINIMUM_REQUIRED(VERSION 3.13.4)
+PROJECT(BallAdventure)
 set(CMAKE_CXX_FLAGS "-std=c++17 -g")
-set(SFML_STATIC_LIBRARIES TRUE)
+# set(SFML_STATIC_LIBRARIES TRUE)
+SET(CMAKE_CXX_STANDARD 17)
 
-project(BallAdventure)
+INCLUDE_DIRECTORIES(project/include)
 
-find_package(SFML COMPONENTS Graphics REQUIRED)
+find_package(SFML 2.5 COMPONENTS graphics audio system window REQUIRED)
 
-add_executable(main main.cpp)
+add_executable(BallAdventure main.cpp)
 
-target_link_libraries(main SFML::Graphics)
+target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-audio sfml-system sfml-window )
+
+
